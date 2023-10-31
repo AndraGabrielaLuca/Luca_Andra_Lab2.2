@@ -17,5 +17,9 @@ namespace Luca_Andra_Lab2._2.Data
         public DbSet<Luca_Andra_Lab2._2.Models.Book> Book { get; set; } = default!;
 
         public DbSet<Luca_Andra_Lab2._2.Models.Publisher>? Publisher { get; set; }
+
+        public DbSet<Luca_Andra_Lab2._2.Models.Category>? Category { get; set; }
+
+        public DbSet<Luca_Andra_Lab2._2.Models.Author>? Author { get; set; }
     }
 }
