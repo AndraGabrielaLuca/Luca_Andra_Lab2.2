@@ -23,9 +23,13 @@ namespace Luca_Andra_Lab2._2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
-            ViewData["PublisherID"] = new SelectList(_context.Publisher, "ID",
-            "PublisherName");
+            var authorList = _context.Author.Select(x => new
+            {
+                x.ID,
+                FullName = x.LastName + " " + x.FirstName
+            });
+            ViewData["AuthorID"] = new SelectList(_context.Set<Author>(), "ID", "FullName");
+            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
             var book = new Book();
             book.BookCategories = new List<BookCategory>();
             PopulateAssignedCategoryData(_context, book);
@@ -34,9 +38,6 @@ namespace Luca_Andra_Lab2._2.Pages.Books
 
         [BindProperty]
         public Book Book { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
         {
             var newBook = new Book();
