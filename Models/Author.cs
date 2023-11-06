@@ -1,4 +1,6 @@
-﻿namespace Luca_Andra_Lab2._2.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Luca_Andra_Lab2._2.Models
 {
     public class Author
     {
@@ -6,8 +8,13 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public string FullName {
-            get { return  FirstName + " " + LastName; } 
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
         }
         public ICollection<Book>? Books { get; set; } 
     }
