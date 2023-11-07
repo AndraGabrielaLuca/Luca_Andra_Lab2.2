@@ -30,7 +30,7 @@ namespace Luca_Andra_Lab2._2.Pages.Books
                 return NotFound();
             }
 
-            var Book = await _context.Book
+             Book = await _context.Book
             .Include(b => b.Publisher)
             .Include(a=>a.Author)
             .Include(b => b.BookCategories).ThenInclude(b => b.Category)
@@ -66,8 +66,7 @@ namespace Luca_Andra_Lab2._2.Pages.Books
             var bookToUpdate = await _context.Book
             .Include(i => i.Publisher)
             .Include(i=>i.Author)
-            .Include(i => i.BookCategories)
-            .ThenInclude(i => i.Category)
+            .Include(i => i.BookCategories).ThenInclude(i => i.Category)
             .FirstOrDefaultAsync(s => s.ID == id);
             if (bookToUpdate == null)
             {
@@ -75,7 +74,7 @@ namespace Luca_Andra_Lab2._2.Pages.Books
             }
             //se va modifica AuthorID conform cu sarcina de la lab 2
             if (await TryUpdateModelAsync<Book>( bookToUpdate, "Book",
-            i => i.Title, i => i.Author,
+            i => i.Title, i => i.AuthorID,
             i => i.Price, i => i.PublishingDate, i => i.PublisherID))
             {
                 UpdateBookCategories(_context, selectedCategories, bookToUpdate);

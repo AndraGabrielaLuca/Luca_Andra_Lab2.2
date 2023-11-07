@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Luca_Andra_Lab2._2.Data;
 using Luca_Andra_Lab2._2.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Luca_Andra_Lab2._2.Pages.Borrowings
 {
@@ -21,8 +22,16 @@ namespace Luca_Andra_Lab2._2.Pages.Borrowings
 
         public IActionResult OnGet()
         {
-        ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-        ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
+            var bookList = _context.Book
+                .Include(b => b.Author)
+                .Select(x => new
+                {
+                    x.ID,
+                    BookFullName = x.Title + " - " + x.Author.LastName + " " +
+                x.Author.FirstName
+                });
+            ViewData["BookID"] = new SelectList(bookList, "ID", "BookFullName");
+            ViewData["MemberID"] = new SelectList(_context.Member, "ID", "FullName");
             return Page();
         }
 
