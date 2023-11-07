@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Luca_Andra_Lab2._2.Data;
 using Luca_Andra_Lab2._2.Models;
 
-namespace Luca_Andra_Lab2._2.Pages.Categories
+namespace Luca_Andra_Lab2._2.Pages.Members
 {
     public class IndexModel : PageModel
     {
@@ -19,14 +19,14 @@ namespace Luca_Andra_Lab2._2.Pages.Categories
             _context = context;
         }
 
-        public IList<Category> Category { get;set; } = default!;
+        public IList<Member> Member { get;set; } = default!;
 
-            public async Task OnGetAsync()
+        public async Task OnGetAsync()
+        {
+            if (_context.Member != null)
             {
-                if (_context.Category != null)
-                {
-                    Category = await _context.Category.ToListAsync();
-                }
+                Member = await _context.Member.ToListAsync();
             }
+        }
     }
 }
