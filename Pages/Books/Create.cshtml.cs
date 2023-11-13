@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Luca_Andra_Lab2._2.Data;
 using Luca_Andra_Lab2._2.Models;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Luca_Andra_Lab2._2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly Luca_Andra_Lab2._2.Data.Luca_Andra_Lab2_2Context _context;
